@@ -94,3 +94,9 @@ export async function replaceTitles(dom: JSDOM): Promise<void> {
   })
   await Promise.all(titlePromises)
 }
+
+export function changeLogo(dom: JSDOM): void {
+  const allImages = dom.window.document.getElementsByTagName('img')
+  const logoImages = Array.from(allImages).filter(img => img.src.includes("ilpost.svg"))
+  logoImages.forEach(i => i.src = "/ilpost.png")
+}

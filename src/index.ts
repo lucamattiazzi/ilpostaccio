@@ -2,7 +2,7 @@ import axios from 'axios'
 import cors from 'cors'
 import express, { Request, Response } from 'express'
 import { JSDOM } from 'jsdom'
-import { addInfo, hideCookieBanner, replaceTitles } from './editDom'
+import { addInfo, changeLogo, hideCookieBanner, replaceTitles } from './editDom'
 
 const app = express()
 app.use(cors())
@@ -15,6 +15,7 @@ async function proxyIlPost(req: Request, res: Response) {
   const dom = new JSDOM(response.data)
   hideCookieBanner(dom)
   addInfo(dom)
+  changeLogo(dom)
   await replaceTitles(dom)
   res.end(dom.serialize())
 }

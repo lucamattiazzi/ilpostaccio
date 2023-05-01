@@ -22,16 +22,17 @@ export function addInfo(dom: JSDOM): void {
   const ribbonElement = dom.window.document.createElement('a')
   ribbonElement.classList.add("github-fork-ribbon")
   ribbonElement.classList.add("fixed")
+  ribbonElement.classList.add("left-top")
   ribbonElement.dataset.ribbon = "Che è sta roba?"
   ribbonElement.target = "_blank"
   ribbonElement.title = "Che è sta roba?"
   ribbonElement.textContent = "Che è sta roba?"
   ribbonElement.href = "#"
-  ribbonElement.id = "magicbutton"
+  ribbonElement.id = "magicRibbon"
   dom.window.document.body.appendChild(ribbonElement)
 
   const infoTextHTML = `
-  <div style="background-color:#eee; padding: 10%; width: 90%; font-size: 2em; height: 90%">
+  <div style="background-color:#eee; padding: 10%; width: 90%; font-size: 2em; height: 90%; position: relative">
     <h2 style="padding-bottom: 1.1em; padding-top: 1.1em; font-size: 1.2em">Cosa?</h2>
     <p>
       Questo sito è un tributo a Il Post, eccellente testata giornalistica online.
@@ -51,6 +52,7 @@ export function addInfo(dom: JSDOM): void {
       Poi prendo il titolo generato e lo metto al posto del titolo originale.
       Poco altro, poi.
     </p>
+    <div id="closeButton" style="position: absolute; top: 10px; right: 10px; font-size: 3em; cursor: pointer">❌</div>
   </div>
   `
   const infoTextHTMLElement = dom.window.document.createElement('div')
@@ -64,14 +66,16 @@ export function addInfo(dom: JSDOM): void {
   infoTextHTMLElement.style.alignItems = 'center'
   infoTextHTMLElement.style.justifyContent = 'center'
   infoTextHTMLElement.style.display = 'none'
+  infoTextHTMLElement.style.backgroundColor = 'rgba(0,0,0,0.5)'
 
   infoTextHTMLElement.innerHTML = infoTextHTML
 
   const infoTextScript = `
-  const infoButton = document.getElementById('magicbutton')
+  const magicRibbon = document.getElementById('magicRibbon')
+  const closeButton = document.getElementById('closeButton')
   const infoModal = document.getElementById('magicmodal')
-  infoButton.onclick = (e) => {e.preventDefault() ; infoModal.style.display = 'flex'}
-  infoModal.onclick = () => infoModal.style.display = 'none'
+  magicRibbon.onclick = (e) => {e.preventDefault() ; infoModal.style.display = 'flex'}
+  closeButton.onclick = () => infoModal.style.display = 'none'
   `
   const infoTextScriptElement = dom.window.document.createElement('script')
   infoTextScriptElement.innerHTML = infoTextScript

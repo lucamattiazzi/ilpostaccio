@@ -8,7 +8,7 @@ config()
 
 const PROMPT = `
   Sei un titolista che deve inventare un titolo clickbait per un articolo.
-  Il titolo sarà circondato di mistero.
+  Il titolo avrà toni misteriosi, e a volte potrà alludere a cospirazioni.
   Il titolo deve essere lungo non più di 200 caratteri.
 `
 
@@ -44,7 +44,7 @@ export async function generateNewTitle(cache: Cache, link: HTMLAnchorElement): P
   const results = await openai.createChatCompletion({
     messages: messages,
     model: "gpt-4",
-    temperature: 0.6,
+    temperature: 0.8,
   })
   const newTitle = results?.data?.choices[0]?.message?.content
   if (newTitle) cache.set(key, newTitle)
